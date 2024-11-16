@@ -27,4 +27,3 @@ const ConstellationSchema = new Schema({
 })
 
 module.exports = mongoose.model('Constellation',ConstellationSchema, 'Constellations')
-
