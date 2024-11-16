@@ -1,0 +1,18 @@
+{
+  "name": "mailer",
+  "version": "1.0.0",
+  "description": "A simple mailer server",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "nodemailer": "^6.9.16",
+    "nodemon": "^3.1.7"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
