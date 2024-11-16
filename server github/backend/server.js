@@ -1,39 +1,39 @@
 require('dotenv').config()
 
-const express = require('express')//express package
-const mongoose = require('mongoose')//mognoose package
+const express = require('express')
+const mongoose = require('mongoose')
+const constelRoutes = require('./routes/constel')
 
-const constelRoutes = require('./routes/constel') //grabs routes from constel.js for use
-
-//express app
+//express app 
 const app = express()
 
-//middleware - checks what requests are made and method like GET POST and shows in console
-//logs request made to backend
+//middlewear
 app.use(express.json())
 
-app.use((req,res,next)=> {
-    console.log(req.path,req.method)
+app.use((req, res, next) => {
+    console.log(req.path, req.method)
     next()
 })
 
-//routes
-app.use('/api/constel',constelRoutes) //path for api is /api/constel/... Whatever is in constel.js
-//eg /api/constel/ is what loads up all the consetllations
-
-
-
+// routes
+//used to test the api
+// app.get('/', (req, res) => {
+//     res.json({mssg: 'Welcome to the app'})
+// })
+app.use('/api/constel', constelRoutes)
 
 //connect to db
 mongoose.connect(process.env.MONGO_URI)
-    .then(()=>{
-        //Listen for requests once connected to db
-        app.listen(process.env.PORT , () => {
-        console.log('connected to db & listening on port 4000') 
-        })
+.then(() => {
+    //listen for requests
+    app.listen(process.env.PORT, () => {
+        console.log('connected to db & listening on port', process.env.PORT)
     })
-    .catch((error) => {
-        console.log(error) //Posted any errors for db connection to log
-    })
- 
+})
+.catch((error) => {
+    console.log(error)
+})
 
+
+
+process.env
