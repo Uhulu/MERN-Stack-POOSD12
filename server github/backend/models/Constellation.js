@@ -23,7 +23,13 @@ const ConstellationSchema = new Schema({
         type: String,
         required: true,
         trim: true
+      },
+      Description:{
+        type: String,
+        required: true,
+        trim: true
       }
+
 })
 
 module.exports = mongoose.model('Constellation',ConstellationSchema, 'Constellations')
