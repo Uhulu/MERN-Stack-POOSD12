@@ -5,7 +5,8 @@ const {
     getConstellation,
     favoriteConstellation,
     unfavoriteConstellation,
-    getUserFavorites
+    getUserFavorites,
+    matchConstellationsByBirthMonth
 } = require('../controllers/constellationController')
 
 const router = express.Router()
@@ -26,7 +27,10 @@ router.post('/favorite', favoriteConstellation)
 router.delete('/unfavorite', unfavoriteConstellation)
 
 //get users favorite constellations
-router.get('/user/:userID/favorites', getUserFavorites)
+router.get('/favorites/:userID', getUserFavorites)
+
+//match
+router.get('/match-constellations/:userID', matchConstellationsByBirthMonth)
 
 
 module.exports = router
