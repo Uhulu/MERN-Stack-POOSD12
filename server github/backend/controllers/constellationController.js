@@ -139,6 +139,46 @@ const getUserFavorites = async (req, res) => {
     }
 }
 
+//match constellations based on the user's birthday month
+const matchConstellationsByBirthMonth = async (req, res) => {
+    const { userID } = req.params;
+
+    if (!userID) {
+        return res.status(400).json({ error: 'User ID is required.' })
+    }
+
+    try {
+        //finding the user by their ID
+        const user = await User.findById(userID);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found.' })
+        }
+
+        //grab the users birthmonth for the matching
+        const { BirthMonth } = user;
+        if (!BirthMonth) {
+            return res.status(400).json({ error: 'User BirthMonth is not found.' })
+        }
+
+        //query the constellation to find matching constellations
+        const matchingConstellations = await Constellation.find({ BirthMonth: BirthMonth })
+
+        if (matchingConstellations.length === 0) {
+            return res.status(404).json({ message: 'No constellations match the user\'s BirthMonth.' })
+        }
+
+        //respond with the matching constellations
+        res.status(200).json({
+            message: `Constellations matching the user\'s BirthMonth (${BirthMonth}):`,
+            constellations: matchingConstellations,
+        })
+    } catch (error) {
+        
+        res.status(500).json({ error: 'Error fetching matched constellations.', details: error.message });
+    }
+}
+
 
 module.exports = {
     loginUser,
@@ -146,5 +186,6 @@ module.exports = {
     getConstellation,
     favoriteConstellation,
     unfavoriteConstellation,
-    getUserFavorites
+    getUserFavorites,
+    matchConstellationsByBirthMonth
 }
