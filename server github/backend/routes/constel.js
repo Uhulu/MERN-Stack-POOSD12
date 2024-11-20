@@ -4,6 +4,8 @@ const {
     getConstellations
 } = require('../controllers/constellationController')
 
+const {signup, getbill} = require('../controllers/emailController.js');
+
 
 const router = express.Router()
 //GET all constellations
@@ -18,5 +20,14 @@ router.get('/:id', (req, res)=> {
 router.post('/:id', (req,res)=>{
     res.json({mssg: 'Favorite a constellation'})
 })
+
+
+
+
+router.post('/user/signup', signup)
+router.post('/product/getbill', getbill )
+
+module.exports = router;
+
 
 module.exports = router
