@@ -4,6 +4,7 @@ import {BrowserRouter, Routes , Route} from 'react-router-dom'
 
 import Home from './pages/Home' //grabs home page from pages folder
 import Navbar from './components/Navbar';
+import Globe from './components/Globe'
 
 function App() {
   return (
