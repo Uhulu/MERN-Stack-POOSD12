@@ -1,22 +1,38 @@
 const express = require('express')  
 
 const {
-    getConstellations
+    loginUser,
+    getConstellations,
+    getConstellation,
+    favoriteConstellation,
+    unfavoriteConstellation,
+    getUserFavorites,
+    searchConstellationByName
 } = require('../controllers/constellationController')
 
-
 const router = express.Router()
-//GET all constellations
+
+//login route
+router.post('/login', loginUser);
+
+//gets all of the constellations
 router.get('/', getConstellations)
 
-//Get a single constellation
-router.get('/:id', (req, res)=> {
-    res.json({mssg: 'GET a single constellation'})
-})
+//get a single constellation
+router.get('/:id', getConstellation)
 
-//POST a favorite to a constellation
-router.post('/:id', (req,res)=>{
-    res.json({mssg: 'Favorite a constellation'})
-})
+// Search constellations by name
+router.get('/search/:name', searchConstellationByName);
+//adding this to search by name
+
+//post a favorite constellation
+router.post('/favorite', favoriteConstellation)
+
+//unfavorite a contellation
+router.delete('/unfavorite', unfavoriteConstellation)
+
+//get users favorite constellations
+router.get('/user/:userID/favorites', getUserFavorites)
+
 
 module.exports = router
