@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    color: white;
+    z-index: 100; /* Ensure it stays on top */
+    position: relative;
+}
+
+.login-form h2 {
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.login-form input {
+    width: 100%;
+    max-width: 300px;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 6px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    position: relative;
+    z-index: 200; /* Inputs stay on top */
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: white;
+}
+
+.login-form input::placeholder {
+    color: #ccc;
+}
+
+/* Login button with swapped color */
+.login-form button {
+    width: 100%;
+    max-width: 300px;
+    padding: 15px;
+    background-color: #ff5722; /* Orange for "Login" */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    z-index: 200; /* Buttons stay on top */
+}
+
+.login-form button:hover {
+    background-color: #e64a19; /* Darker orange for "Login" hover */
+}
+
+/* Register button with swapped color */
+.login-form button:nth-child(4) {
+    background-color: #007bff; /* Blue for "Register" */
+}
+
+.login-form button:nth-child(4):hover {
+    background-color: #0056b3; /* Darker blue for "Register" hover */
+}
+
+/* Stars container should not block interactions */
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: transparent;
+    overflow: hidden;
+    pointer-events: none; /* Prevent stars from blocking clicks */
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 5s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
