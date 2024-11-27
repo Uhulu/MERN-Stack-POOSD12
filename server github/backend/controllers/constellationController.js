@@ -1,44 +1,6 @@
-const Constellation = require('../modules/Constellation')
+const Constellation = require('../models/Constellation')
 const mongoose = require('mongoose')
-const User = require('../modules/User')
-
-//login user
-const loginUser = async (req, res) => {
-    const { Login, Password } = req.body
-
-    if (!Login || !Password) {
-        return res.status(400).json({ error: 'Login and Password are required' })
-    }
-
-    try {
-        //checking if the user exists by login
-        const user = await User.findOne({ Login: Login })
-        if (!user) {
-            return res.status(400).json({ error: 'Invalid login credentials' })
-        }
-
-        //making sure the password is correct with login
-        if (Password !== user.Password) {
-            return res.status(400).json({ error: 'Invalid login credentials' })
-        }
-
-        //sending back the user info
-        res.status(200).json({
-            message: 'Login successful',
-            user: {
-                _id: user._id,
-                Login: user.Login,
-                FirstName: user.FirstName,
-                LastName: user.LastName,
-                Email: user.Email,
-                Verified: user.Verified,
-            }
-        });
-
-    } catch (error) {
-        res.status(500).json({ error: error.message })
-    }
-}
+const User = require('../models/userModel')
 
 //get all constellations
 const getConstellations = async (req, res) => {
@@ -181,7 +143,6 @@ const matchConstellationsByBirthMonth = async (req, res) => {
 
 
 module.exports = {
-    loginUser,
     getConstellations,
     getConstellation,
     favoriteConstellation,
