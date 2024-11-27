@@ -1,22 +1,51 @@
-const express = require('express')  
-
+const express = require('express')
 const {
-    getConstellations
+   loginUser,
+   getConstellations,
+   getConstellation,
+   favoriteConstellation,
+   unfavoriteConstellation,
+   getUserFavorites,
+   matchConstellationsByBirthMonth
 } = require('../controllers/constellationController')
+// const { registerUser  } = require('../controllers/signup.js');
 
 
 const router = express.Router()
-//GET all constellations
+
+
+//login route
+router.post('/login', loginUser);
+
+
+//gets all of the constellations
 router.get('/', getConstellations)
 
-//Get a single constellation
-router.get('/:id', (req, res)=> {
-    res.json({mssg: 'GET a single constellation'})
-})
 
-//POST a favorite to a constellation
-router.post('/:id', (req,res)=>{
-    res.json({mssg: 'Favorite a constellation'})
-})
+//get a single constellation
+router.get('/:id', getConstellation)
+
+
+//post a favorite constellation
+router.post('/favorite', favoriteConstellation)
+
+
+//unfavorite a contellation
+router.delete('/unfavorite', unfavoriteConstellation)
+
+
+//get users favorite constellations
+router.get('/favorites/:userID', getUserFavorites)
+
+
+//match
+router.get('/match-constellations/:userID', matchConstellationsByBirthMonth)
+
+
+
+
+// // POST /api/email/signup
+// router.post('/signup', registerUser );
+
 
 module.exports = router
