@@ -1,6 +1,6 @@
-const Constellation = require('../modules/Constellation')
+const Constellation = require('../models/Constellation')
 const mongoose = require('mongoose')
-const User = require('../modules/User')
+const User = require('../models/User')
 
 //login user
 const loginUser = async (req, res) => {
@@ -179,7 +179,7 @@ const matchConstellationsByBirthMonth = async (req, res) => {
     }
 }
 
-const Token = require("../modules/token");
+const Token = require("../models/token");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 
