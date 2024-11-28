@@ -1,5 +1,6 @@
 const express = require('express')
 const {
+    loginUser,
     getConstellations,
     getConstellation,
     favoriteConstellation,
@@ -9,6 +10,9 @@ const {
 } = require('../controllers/constellationController')
 
 const router = express.Router()
+
+//login route
+router.post('/login', loginUser);
 
 //gets all of the constellations
 router.get('/', getConstellations)
@@ -27,6 +31,5 @@ router.get('/favorites/:userID', getUserFavorites)
 
 //match
 router.get('/match-constellations/:userID', matchConstellationsByBirthMonth)
-
 
 module.exports = router
