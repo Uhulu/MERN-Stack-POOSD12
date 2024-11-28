@@ -3,7 +3,6 @@ require('dotenv').config()
 const express = require('express') //express package
 const mongoose = require('mongoose') //mogoose package
 const constelRoutes = require('./routes/constel') //grabs routes from constel.js for use
-const userRoutes = require('./routes/user')
 
 //express app 
 const app = express()
@@ -20,7 +19,6 @@ app.use((req, res, next) => {
 // routes
 app.use('/api/constel', constelRoutes) //path for api is /api/constel/... Whatever is in constel.js
 //eg /api/constel/ is what loads up all the consetllations
-app.use('/api/user', userRoutes)
 
 //connect to db
 mongoose.connect(process.env.MONGO_URI)
@@ -33,7 +31,5 @@ mongoose.connect(process.env.MONGO_URI)
 .catch((error) => {
     console.log(error) //Posted any errors for db connection to log
 })
-
-
 
 process.env
