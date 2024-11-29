@@ -8,35 +8,36 @@ const Schema = mongoose.Schema
 const UserSchema = new Schema({
     firstName: {
         type: String,
-        required: true
+        required: true,
     },
     lastName: {
         type: String,
-        required: true
+        required: true,
     },
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true,
     },
     password: {
         type: String,
-        required: true
+        required: true,
     },
     verified: {
         type: Boolean,
-        default: false
+        default: false,
     },
     favorites: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Constellation'
-        }
+            ref: 'Constellation',
+        },
     ],
     birthMonth: {
         type: String,
-        required: true 
-    }
+        required: true ,
+    },
 })
 
 UserSchema.methods.generateAuthToken = function () {
