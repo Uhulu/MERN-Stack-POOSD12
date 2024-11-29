@@ -1,6 +1,6 @@
 const Constellation = require('../models/Constellation')
 const mongoose = require('mongoose')
-const User = require('../models/userModel')
+const User = require('../models/userModel').User
 
 //get all constellations
 const getConstellations = async (req, res) => {
@@ -28,35 +28,44 @@ const getConstellation = async (req, res) => {
 const favoriteConstellation = async (req, res) => {
     const{ userID, constellationID } = req.body
 
+    try{
+        console.log("Request body:", req.body)
     if (!userID || !constellationID) {
+        console.log("Missing userID or constellationID")
         return res.status(400).json({ error: 'userID and constellationID are required' })
     }
 
-    try{
+    // try{
         //ensure constellationID is an ObjectId
         //so even though we have _id, mongodb constellationID works to identify the constellation
         if (!mongoose.Types.ObjectId.isValid(constellationID)) {
-            return res.status(400).json({ error: 'Invalid constellationID format' });
+            console.log("Invaild constellationID:", constellationID)
+            return res.status(400).json({ error: 'Invalid constellationID format' })
         }
-
+        console.log("Looking for constellation with ID:", constellationID)
         //checking if the contellation is within the database
         const constellation = await Constellation.findById(constellationID)
         if(!constellation){
+            console.log("Constellation not found for ID:", constellationID)
             return res.status(404).json({error: 'No constellation found'})
         }
 
     //adding the constellation to the users favorites 
+    console.log("Looking for user with ID:", userID)
     const user = await User.findById(userID)
     if(!user){
+        console.log("User not found for ID:", userID)
         return res.status(404).json({error:'User not found'})
     }
     //checking if the constellation is already in favorites
-    if(!user.Favorites.includes(constellationID)){
-        user.Favorites.push(constellationID)
+    if(!user.favorites.includes(constellationID)){
+        user.favorites.push(constellationID)
         //save the changes to the database
         await user.save()
-        return res.status(200).json({mssg:'Constellation added to favorites', Favorites: user.Favorites})
+        console.log("Constellation added to favorites:", user.favorites)
+        return res.status(200).json({mssg:'Constellation added to favorites', favorites: user.favorites})
     } else{
+        console.log("Constellation already in favorites:", constellationID)
         return res.status(400).json({error: 'Constellation already in favorites'})
     }
     }catch(error){
@@ -74,10 +83,10 @@ const unfavoriteConstellation = async (req, res) => {
             return res.status(404).json({error: 'User not found'})
                  
         }   
-        if(user.Favorites.includes(constellationID)){
-            user.Favorites = user.Favorites.filter(fav => fav.toString() !== constellationID)
+        if(user.favorites.includes(constellationID)){
+            user.favorites = user.favorites.filter(fav => fav.toString() !== constellationID)
             await user.save()
-            return res.status(200).json({mssg: 'Constellation removed from favorites', Favorites: user.Favorites})
+            return res.status(200).json({mssg: 'Constellation removed from favorites', favorites: user.favorites})
     } else {
         return res.status(400).json({error: 'Constellation not in favorites'})
     }
@@ -90,12 +99,12 @@ const getUserFavorites = async (req, res) => {
     const { userID } = req.params
 
     try {
-        const user = await User.findById(userID).populate('Favorites')
+        const user = await User.findById(userID).populate('favorites')
         if (!user) {
             return res.status(404).json({ error: 'User not found' })
         }
 
-        res.status(200).json(user.Favorites)
+        res.status(200).json(user.favorites)
     } catch (error) {
         res.status(500).json({ error: error.message })
     }
@@ -118,13 +127,13 @@ const matchConstellationsByBirthMonth = async (req, res) => {
         }
 
         //grab the users birthmonth for the matching
-        const { BirthMonth } = user;
-        if (!BirthMonth) {
-            return res.status(400).json({ error: 'User BirthMonth is not found.' })
+        const { birthMonth } = user;
+        if (!birthMonth) {
+            return res.status(400).json({ error: 'User birthMonth is not found.' })
         }
 
         //query the constellation to find matching constellations
-        const matchingConstellations = await Constellation.find({ BirthMonth: BirthMonth })
+        const matchingConstellations = await Constellation.find({ birthMonth: birthMonth })
 
         if (matchingConstellations.length === 0) {
             return res.status(404).json({ message: 'No constellations match the user\'s BirthMonth.' })
@@ -132,7 +141,7 @@ const matchConstellationsByBirthMonth = async (req, res) => {
 
         //respond with the matching constellations
         res.status(200).json({
-            message: `Constellations matching the user\'s BirthMonth (${BirthMonth}):`,
+            message: `Constellations matching the user\'s BirthMonth (${birthMonth}):`,
             constellations: matchingConstellations,
         })
     } catch (error) {
@@ -140,6 +149,10 @@ const matchConstellationsByBirthMonth = async (req, res) => {
         res.status(500).json({ error: 'Error fetching matched constellations.', details: error.message });
     }
 }
+
+const Token = require("../models/token")
+const sendEmail = require("../utils/sendEmail")
+const crypto = require("crypto")
 
 
 module.exports = {
