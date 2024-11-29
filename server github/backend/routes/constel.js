@@ -28,5 +28,4 @@ router.get('/favorites/:userID', getUserFavorites)
 //match
 router.get('/match-constellations/:userID', matchConstellationsByBirthMonth)
 
-
 module.exports = router
