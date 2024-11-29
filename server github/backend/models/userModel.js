@@ -1,68 +1,62 @@
 const mongoose = require('mongoose')
-const validator = require('validator')
+const jwt = require("jsonwebtoken")
+const Joi = require("joi")
+const passwordComplexity = require("joi-password-complexity")
 
 const Schema = mongoose.Schema
+
 const UserSchema = new Schema({
-    Email: {
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    email: {
         type: String,
         required: true,
         unique: true
     },
-    Password: {
+    password: {
         type: String,
         required: true
     },
-    FirstName: {
-        type: String,
-        required: true
+    verified: {
+        type: Boolean,
+        default: false
     },
-    LastName: {
-        type: String,
-        required: true
-    },
-    Favorites: [
+    favorites: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Constellation'
         }
     ],
-    BirthMonth: {
+    birthMonth: {
         type: String,
         required: true 
     }
 })
 
-//static signup method
-    UserSchema.statics.signup = async function (email, password, firstName, lastName, birthMonth) {
-
-    //validation 
-    if (!email || !password || !firstName || !lastName || !birthMonth) {
-         throw Error('All fields are required')
-    }
-    //returns true or false to check if its a valid email
-    if(!validator.isEmail(email)){//
-        throw Error('Email is not valid')
-    }
-    //checking if the password is strong enough and if not another error is thrown
-    if (!validator.isStrongPassword(password)){
-        throw Error('Password not strong enough')
-    }
-
-    const exists = await this.findOne({ email })
-     if(exists){
-        throw Error("Email already in use")
-     }
-
-     const user = await this.create({
-        Email: email,
-        Password: password,
-        FirstName: firstName,
-        LastName: lastName,
-        BirthMonth: birthMonth,
-    })
-
-     return user
+UserSchema.methods.generateAuthToken = function () {
+	const token = jwt.sign({ _id: this._id }, process.env.JWTPRIVATEKEY, {
+		expiresIn: "7d",
+	})
+	return token;
 }
 
+const User = mongoose.models.user || mongoose.model("user", UserSchema)
 
-module.exports = mongoose.model('User', UserSchema)
+const validate = (data) => {
+	const schema = Joi.object({
+        firstName: Joi.string().required().label("First Name"),
+		lastName: Joi.string().required().label("Last Name"),
+        email: Joi.string().email().required().label("Email"),
+		password: passwordComplexity().required().label("Password"),
+        birthMonth: Joi.string().required().label("BirthMonth")
+	})
+	return schema.validate(data)
+}
+
+module.exports = { User, validate }
