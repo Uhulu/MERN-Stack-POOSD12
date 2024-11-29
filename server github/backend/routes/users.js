@@ -12,34 +12,55 @@ router.post("/register", async (req, res) => {
 
         // Validate input
         const { error } = validate(req.body);
-        if (error) return res.status(400).send({ message: error.details[0].message })
-
+        if (error) {
+			console.log("Validation Error:", error.details[0].message)
+			return res.status(400).send({ message: error.details[0].message })
+		}
         // Normalize email to lowercase
-        const email = req.body.email.toLowerCase()
+        const email = req.body.email ? req.body.email.toLowerCase().trim() : null
+		console.log("Normalize Email:", email)
+		if(!email){
+			console.log("Email is null or invalid in the request body")
+			return res.status(400).send({message: "Email is required"})
+		}
 
         // Check if user already exists
         console.log("Checking for existing user with email:", email)
         let user = await User.findOne({ email });
-        if (user) return res.status(409).send({ message: "User with given email already Exist!" })
-
+        if (user) {
+			console.log("Existing user found:", user)
+			return res.status(409).send({ message: "User with given email already Exist!" })
+		}
         // Hash password
         const saltRounds = Number(process.env.SALT) || 10
         const hashPassword = await bcrypt.hash(req.body.password, saltRounds)
 
         // Create new user
-        user = new User({ ...req.body, email, password: hashPassword })
-        await user.save()
+        const newUser = new User({ 
+			firstName: req.body.firstName,
+			lastName: req.body.lastName,
+			email: email,
+			password: hashPassword,
+			birthMonth: req.body.birthMonth,
+		 })
+		 if(!newUser.email){
+			throw new Error("Email is null before saving to the database")
+		 }
+		 console.log("User before saving to the database:", newUser)
+
+        await newUser.save()
+		console.log("User saved successfully to the database")
 
         // Create verification token
         const token = await new Token({
-            userId: user._id,
+            userId: newUser._id,
             token: crypto.randomBytes(32).toString("hex"),
         }).save()
 
         // const url = `${process.env.BASE_URL}users/${user._id}/verify/${token.token}`
-		const url = `${process.env.BASE_URL}api/users/${user._id}/verify/${token.token}`
+		const url = `${process.env.BASE_URL}api/users/${newUser._id}/verify/${token.token}`
         console.log("Verification URL:", url)
-        await sendEmail(user.email, "Verify Email", url)
+        await sendEmail(newUser.email, "Verify Email", url)
 
         res.status(201).send({ message: "An Email sent to your account please verify" })
     } catch (error) {
