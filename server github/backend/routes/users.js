@@ -58,9 +58,9 @@ router.post("/register", async (req, res) => {
         }).save()
 
         // const url = `${process.env.BASE_URL}users/${user._id}/verify/${token.token}`
-		const url = `${process.env.BASE_URL}api/users/${newUser._id}/verify/${token.token}`
-        console.log("Verification URL:", url)
-        await sendEmail(newUser.email, "Verify Email", url)
+		const link = `${process.env.BASE_URL}api/users/${newUser._id}/verify/${token.token}`
+        console.log("Verification URL:", link)
+        await sendEmail(newUser.email, "Verify Your Email", link)
 
         res.status(201).send({ message: "An Email sent to your account please verify" })
     } catch (error) {
