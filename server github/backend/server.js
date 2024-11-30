@@ -1,39 +1,45 @@
-require('dotenv').config()
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
 
-const express = require('express')//express package
-const mongoose = require('mongoose')//mognoose package
-
-const constelRoutes = require('./routes/constel') //grabs routes from constel.js for use
-
-//express app
-const app = express()
-
-//middleware - checks what requests are made and method like GET POST and shows in console
-//logs request made to backend
-app.use(express.json())
-
-app.use((req,res,next)=> {
-    console.log(req.path,req.method)
-    next()
-})
-
-//routes
-app.use('/api/constel',constelRoutes) //path for api is /api/constel/... Whatever is in constel.js
-//eg /api/constel/ is what loads up all the consetllations
+const constelRoutes = require('./routes/constel');
+const signUp = require('./routes/signup'); // grabs routes from signup.js for use
+const userLogin = require('./routes/login'); // grabs routes from login.js for use
+const verifyRoutes = require('./routes/verify');
+const app = express();
 
 
+// Enable CORS for all routes
+app.use(cors());
+
+app.use(express.json());
+
+app.use((req, res, next) => {
+    console.log(req.path, req.method);
+    next();
+});
+
+// Routes
+app.use('/api/email', verifyRoutes);
+app.use('/api/constel', constelRoutes); // path for api is /api/constel/... Whatever is in constel.js
+app.use('/api/register', signUp); // path for api is /api/register/... Whatever is in signup.js
+app.use('/api/user', userLogin); // path for api is /api/login/... Whatever is in login.js
+
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'frontend/dist')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
+});
 
 
-//connect to db
+// Connect to db
 mongoose.connect(process.env.MONGO_URI)
-    .then(()=>{
-        //Listen for requests once connected to db
-        app.listen(process.env.PORT , () => {
-        console.log('connected to db & listening on port 4000') 
-        })
+    .then(() => {
+        app.listen(process.env.PORT, () => {
+            console.log(`connected to db & listening on port ${process.env.PORT}`);
+        });
     })
     .catch((error) => {
-        console.log(error) //Posted any errors for db connection to log
-    })
- 
-
+        console.log(error); // Log any errors for db connection
+    });
