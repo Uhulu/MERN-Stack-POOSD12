@@ -28,16 +28,32 @@ app.use('/api/constel', constelRoutes) //path for api is /api/constel/... Whatev
 app.use("/api/users", userRoutes)
 app.use("/api/auth", authRoutes)
 
-//connect to db
-mongoose.connect(process.env.MONGO_URI)
-.then(() => {
-    //listen for requests
-    app.listen(process.env.PORT, () => {
-        console.log('connected to db & listening on port', process.env.PORT)
-    })
-})
-.catch((error) => {
-    console.log(error) //Posted any errors for db connection to log
-})
+// //connect to db
+// mongoose.connect(process.env.MONGO_URI)
+// .then(() => {
+//     //listen for requests
+//     app.listen(process.env.PORT, () => {
+//         console.log('connected to db & listening on port', process.env.PORT)
+//     })
+// })
+// .catch((error) => {
+//     console.log(error) //Posted any errors for db connection to log
+// })
+
+// Database Connection (for non-test environments)
+if (process.env.NODE_ENV !== 'test') {
+    mongoose.connect(process.env.MONGO_URI)
+        .then(() => {
+            app.listen(process.env.PORT, () => {
+                console.log('Connected to DB & listening on port ${process.env.PORT}');
+            });
+        })
+        .catch((error) => {
+            console.log(err);
+        });
+}
+
+module.exports = app; // Export app for testing
+
 
 process.env
