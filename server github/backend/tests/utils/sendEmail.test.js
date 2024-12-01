@@ -8,13 +8,13 @@ describe('sendEmail Utility', () => {
         const sendMailMock = jest.fn().mockResolvedValue('Email sent successfully')
         nodemailer.createTransport.mockReturnValue({ sendMail: sendMailMock })
 
-        await sendEmail('test@example.com', 'Test Subject', 'Test Body')
+        await sendEmail('test@example.com', 'Test Subject', 'Test emailBody')
 
         expect(sendMailMock).toHaveBeenCalledWith({
             from: process.env.EMAIL,
             to: 'test@example.com',
             subject: 'Test Subject',
-            text: 'Test Body',
+            html: expect.stringContaining('Email Verification'), 
         })
     })
 
@@ -22,7 +22,8 @@ describe('sendEmail Utility', () => {
         const sendMailMock = jest.fn().mockRejectedValue(new Error('Email failed'))
         nodemailer.createTransport.mockReturnValue({ sendMail: sendMailMock })
 
-        // await expect(sendEmail('test@example.com', 'Test Subject', 'Test Body')).rejects.toThrow('Email failed')
-        await expect(sendEmail('test@example.com', 'Test Subject', 'Test emailBody')).rejects.toThrow('Email failed')
+        await expect(
+            sendEmail('test@example.com', 'Test Subject', 'Test emailBody')
+        ).rejects.toThrow('Email failed')
     })
 })
