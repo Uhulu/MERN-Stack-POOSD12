@@ -50,7 +50,6 @@ module.exports = async (email, subject, link) => {
             from: process.env.EMAIL,
             to: email,
             subject: subject,
-            //text: text
             html: emailBody,
         })
 
