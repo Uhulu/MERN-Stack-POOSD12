@@ -1,0 +1,596 @@
+[
+    {
+        "constellation": "Orion",
+        "stars": [
+            {
+                "id": 0,
+                "name": "Betelgeuse",
+                "position": [
+                    -30,
+                    -20,
+                    60
+                ],
+                "magnitude": 0.42
+            },
+            {
+                "id": 1,
+                "name": "Rigel",
+                "position": [
+                    80,
+                    -50,
+                    -40
+                ],
+                "magnitude": 0.18
+            },
+            {
+                "id": 2,
+                "name": "Bellatrix",
+                "position": [
+                    50,
+                    30,
+                    20
+                ],
+                "magnitude": 1.64
+            },
+            {
+                "id": 3,
+                "name": "Mintaka",
+                "position": [
+                    10,
+                    -10,
+                    30
+                ],
+                "magnitude": 2.23
+            },
+            {
+                "id": 4,
+                "name": "Alnitak",
+                "position": [
+                    -10,
+                    -20,
+                    40
+                ],
+                "magnitude": 2.05
+            },
+            {
+                "id": 5,
+                "name": "Alnilam",
+                "position": [
+                    0,
+                    -15,
+                    35
+                ],
+                "magnitude": 1.69
+            }
+        ],
+        "connections": [
+            [
+                0,
+                2
+            ],
+            [
+                2,
+                1
+            ],
+            [
+                3,
+                4
+            ],
+            [
+                4,
+                5
+            ],
+            [
+                5,
+                3
+            ]
+        ]
+    },
+    {
+        "constellation": "Cassiopeia",
+        "stars": [
+            {
+                "id": 0,
+                "name": "Schedar",
+                "position": [
+                    -70,
+                    50,
+                    -40
+                ],
+                "magnitude": 2.24
+            },
+            {
+                "id": 1,
+                "name": "Caph",
+                "position": [
+                    -80,
+                    20,
+                    -60
+                ],
+                "magnitude": 2.27
+            },
+            {
+                "id": 2,
+                "name": "Ruchbah",
+                "position": [
+                    -90,
+                    -10,
+                    -80
+                ],
+                "magnitude": 2.68
+            },
+            {
+                "id": 3,
+                "name": "Gamma Cassiopeiae",
+                "position": [
+                    -75,
+                    -30,
+                    -65
+                ],
+                "magnitude": 2.47
+            },
+            {
+                "id": 4,
+                "name": "Eta Cassiopeiae",
+                "position": [
+                    -60,
+                    -15,
+                    -50
+                ],
+                "magnitude": 3.45
+            }
+        ],
+        "connections": [
+            [
+                0,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                2,
+                3
+            ],
+            [
+                3,
+                4
+            ],
+            [
+                4,
+                0
+            ]
+        ]
+    },
+    {
+        "constellation": "Ursa Major",
+        "stars": [
+            {
+                "id": 0,
+                "name": "Dubhe",
+                "position": [
+                    10,
+                    40,
+                    30
+                ],
+                "magnitude": 1.81
+            },
+            {
+                "id": 1,
+                "name": "Merak",
+                "position": [
+                    20,
+                    35,
+                    25
+                ],
+                "magnitude": 2.37
+            },
+            {
+                "id": 2,
+                "name": "Phecda",
+                "position": [
+                    30,
+                    30,
+                    20
+                ],
+                "magnitude": 2.41
+            },
+            {
+                "id": 3,
+                "name": "Megrez",
+                "position": [
+                    40,
+                    25,
+                    15
+                ],
+                "magnitude": 3.32
+            },
+            {
+                "id": 4,
+                "name": "Alioth",
+                "position": [
+                    50,
+                    20,
+                    10
+                ],
+                "magnitude": 1.76
+            },
+            {
+                "id": 5,
+                "name": "Mizar",
+                "position": [
+                    60,
+                    15,
+                    5
+                ],
+                "magnitude": 2.23
+            },
+            {
+                "id": 6,
+                "name": "Alkaid",
+                "position": [
+                    70,
+                    10,
+                    0
+                ],
+                "magnitude": 1.85
+            }
+        ],
+        "connections": [
+            [
+                0,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                2,
+                3
+            ],
+            [
+                3,
+                4
+            ],
+            [
+                4,
+                5
+            ],
+            [
+                5,
+                6
+            ]
+        ]
+    },
+    {
+        "constellation": "Lyra",
+        "stars": [
+            {
+                "id": 0,
+                "name": "Vega",
+                "position": [
+                    20,
+                    50,
+                    -10
+                ],
+                "magnitude": 0.03
+            },
+            {
+                "id": 1,
+                "name": "Sheliak",
+                "position": [
+                    25,
+                    45,
+                    -15
+                ],
+                "magnitude": 3.45
+            },
+            {
+                "id": 2,
+                "name": "Sulafat",
+                "position": [
+                    30,
+                    40,
+                    -20
+                ],
+                "magnitude": 3.25
+            },
+            {
+                "id": 3,
+                "name": "Delta Lyrae",
+                "position": [
+                    35,
+                    35,
+                    -25
+                ],
+                "magnitude": 4.35
+            }
+        ],
+        "connections": [
+            [
+                0,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                2,
+                3
+            ]
+        ]
+    },
+    {
+        "constellation": "Cygnus",
+        "stars": [
+            {
+                "id": 0,
+                "name": "Deneb",
+                "position": [
+                    -30,
+                    50,
+                    10
+                ],
+                "magnitude": 1.25
+            },
+            {
+                "id": 1,
+                "name": "Sadr",
+                "position": [
+                    -35,
+                    45,
+                    15
+                ],
+                "magnitude": 2.23
+            },
+            {
+                "id": 2,
+                "name": "Gienah",
+                "position": [
+                    -40,
+                    40,
+                    20
+                ],
+                "magnitude": 2.48
+            },
+            {
+                "id": 3,
+                "name": "Albireo",
+                "position": [
+                    -45,
+                    35,
+                    25
+                ],
+                "magnitude": 3.18
+            }
+        ],
+        "connections": [
+            [
+                0,
+                1
+            ],
+            [
+                1,
+                2
+            ],
+            [
+                2,
+                3
+            ]
+        ]
+    },
+    {
+        "constellation": "Taurus",
+        "stars": [
+            {
+                "id": 0,
+                "name": "Aldebaran",
+                "position": [
+                    60,
+                    30,
+                    -50
+                ],
+                "magnitude": 0.87
+            },
+            {
+                "id": 1,
+                "name": "Elnath",
+                "position": [
+                    65,
+                    25,
+                    -45
+                ],
+                "magnitude": 1.65
+            },
+            {
+                "id": 2,
+                "name": "Zeta Tauri",
+                "position": [
+                    70,
+                    20,
+                    -40
+                ],
+                "magnitude": 3.0
+            }
+        ],
+        "connections": [
+            [
+                0,
+                1
+            ],
+            [
+                1,
+                2
+            ]
+        ]
+    },
+    {
+        "constellation": "Canis Major",
+        "stars": [
+            {
+                "id": 0,
+                "name": "Sirius",
+                "position": [
+                    80,
+                    -10,
+                    30
+                ],
+                "magnitude": -1.46
+            },
+            {
+                "id": 1,
+                "name": "Adhara",
+                "position": [
+                    75,
+                    -20,
+                    25
+                ],
+                "magnitude": 1.5
+            },
+            {
+                "id": 2,
+                "name": "Wezen",
+                "position": [
+                    70,
+                    -30,
+                    20
+                ],
+                "magnitude": 1.83
+            }
+        ],
+        "connections": [
+            [
+                0,
+                1
+            ],
+            [
+                1,
+                2
+            ]
+        ]
+    },
+    {
+        "constellation": "Scorpius",
+        "stars": [
+            {
+                "id": 0,
+                "name": "Antares",
+                "position": [
+                    -20,
+                    -40,
+                    50
+                ],
+                "magnitude": 0.96
+            },
+            {
+                "id": 1,
+                "name": "Shaula",
+                "position": [
+                    -25,
+                    -45,
+                    55
+                ],
+                "magnitude": 1.62
+            },
+            {
+                "id": 2,
+                "name": "Sargas",
+                "position": [
+                    -30,
+                    -50,
+                    60
+                ],
+                "magnitude": 1.86
+            }
+        ],
+        "connections": [
+            [
+                0,
+                1
+            ],
+            [
+                1,
+                2
+            ]
+        ]
+    },
+    {
+        "constellation": "Aquarius",
+        "stars": [
+            {
+                "id": 0,
+                "name": "Sadalmelik",
+                "position": [
+                    40,
+                    50,
+                    -30
+                ],
+                "magnitude": 2.95
+            },
+            {
+                "id": 1,
+                "name": "Sadalsuud",
+                "position": [
+                    45,
+                    55,
+                    -35
+                ],
+                "magnitude": 2.9
+            },
+            {
+                "id": 2,
+                "name": "Albali",
+                "position": [
+                    50,
+                    60,
+                    -40
+                ],
+                "magnitude": 3.77
+            }
+        ],
+        "connections": [
+            [
+                0,
+                1
+            ],
+            [
+                1,
+                2
+            ]
+        ]
+    },
+    {
+        "constellation": "Gemini",
+        "stars": [
+            {
+                "id": 0,
+                "name": "Castor",
+                "position": [
+                    -50,
+                    -30,
+                    20
+                ],
+                "magnitude": 1.58
+            },
+            {
+                "id": 1,
+                "name": "Pollux",
+                "position": [
+                    -55,
+                    -35,
+                    25
+                ],
+                "magnitude": 1.16
+            }
+        ],
+        "connections": [
+            [
+                0,
+                1
+            ]
+        ]
+    }
+]
