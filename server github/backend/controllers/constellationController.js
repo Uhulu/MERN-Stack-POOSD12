@@ -156,13 +156,13 @@ const matchConstellationsByBirthMonth = async (req, res) => {
         }
 
         //grab the users birthmonth for the matching
-        const { BirthMonth } = user;
-        if (!BirthMonth) {
+        const { birthMonth } = user;
+        if (!birthMonth) {
             return res.status(400).json({ error: 'User BirthMonth is not found.' })
         }
 
         //query the constellation to find matching constellations
-        const matchingConstellations = await Constellation.find({ BirthMonth: BirthMonth })
+        const matchingConstellations = await Constellation.find({ birthMonth: birthMonth })
 
         if (matchingConstellations.length === 0) {
             return res.status(404).json({ message: 'No constellations match the user\'s BirthMonth.' })
@@ -170,7 +170,7 @@ const matchConstellationsByBirthMonth = async (req, res) => {
 
         //respond with the matching constellations
         res.status(200).json({
-            message: `Constellations matching the user\'s BirthMonth (${BirthMonth}):`,
+            message: `Constellations matching the user\'s BirthMonth (${birthMonth}):`,
             constellations: matchingConstellations,
         })
     } catch (error) {
