@@ -38,7 +38,7 @@ const UserSchema = new Schema({
             ref: 'Constellation'
         }
     ],
-    BirthMonth: {
+    birthMonth: {
         type: String,
         required: true 
     }
